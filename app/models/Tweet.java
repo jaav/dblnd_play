@@ -1,25 +1,14 @@
 package models;
 
+import aws.DynamoFactory;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
-import play.modules.aws.dynamodb.DynamoDB;
-import play.modules.aws.dynamodb.DynamoDBModel;
+import aws.DynamoDBModel;
 
 import java.util.List;
 import java.util.Set;
 
 @DynamoDBTable(tableName = "tweeet")
 public class Tweet extends DynamoDBModel implements Comparable<Tweet> {
-//{"id":43300951,
-// "lastModified":1356085056000,
-// "author":"Sudpresse",
-// "quantity":1,
-// "image":"55d918e608214e5cbfda71d3e825392c.jpg",
-// "rawRate":2,
-// "firstImageObject":null,
-// "firstUrlObject":{"id":131116,"lastModified":1356094811000,"value":"http://www.sudinfo.be/627699/article/actualite/monde/2012-12-20/reconnaissez-vous-cette-pedophile-qui-abuse-sexuellement-un-enfant-de-4-a-5-ans?utm_source=twitterfeed&utm_medium=twitter","quantity":1,"type":"URL","quantityFactor":2},
-// "hashtags":["sudpresse"],
-// "urls":["http://www.sudinfo.be/627699/article/actualite/monde/2012-12-20/reconnaissez-vous-cette-pedophile-qui-abuse-sexuellement-un-enfant-de-4-a-5-ans?utm_source=twitterfeed&utm_medium=twitter"],
-// "tweet":"Reconnaissez-vous cette p�dophile, qui abuse sexuellement un enfant de 4 � 5 ans? http://t.co/ovKxeZcy #sudpresse"},
 
 	private String id;
 	private Integer sequence;
@@ -141,7 +130,7 @@ public class Tweet extends DynamoDBModel implements Comparable<Tweet> {
 	}
 
 	public static boolean exists(String email) {
-		Tweet tweet = DynamoDB.mapper().load(Tweet.class, email);
+		Tweet tweet = DynamoFactory.getMapper().load(Tweet.class, email);
 		return tweet != null;
 	}
 
